@@ -17,7 +17,6 @@ const UploadForm = () => {
 		const changedTitle = e.target.value;
 		if (changeTitle && changedTitle.length > 4) {
 			setTitle(changedTitle);
-			console.log(title)
 			setErrors( (prevErrors) => {
 				return {
 					...prevErrors,
@@ -38,7 +37,6 @@ const UploadForm = () => {
 
 	const changeCategory = (e) => {
 		const changedCategory = e.target.value;
-		console.log(changedCategory)
 		if (changedCategory) {
 			setCategory(changedCategory);
 			setErrors( (prevErrors) => {
@@ -60,10 +58,8 @@ const UploadForm = () => {
 
 	const changeFile = (e) => {
 		const fileSelected = e.target.files[0];
-		console.log(fileSelected);
 		if (fileSelected && allowedFileTypes.includes(fileSelected.type)) {
 			setFile(fileSelected);
-			console.log(file);
 			setErrors( (prevErrors) => {
 				return {
 					...prevErrors,
@@ -78,8 +74,13 @@ const UploadForm = () => {
 					file: 'Selectează un fișier care să fie de tipul jpg, png sau jpeg'
 				}
 			});
-			console.log(errors.file);
 		}
+	}
+
+	const submitUploadForm = () => {
+		console.log('Title: ' + title);
+		console.log('Category: ' + category);
+		console.log('File: ' + file);
 	}
 
 	return (
@@ -108,13 +109,18 @@ const UploadForm = () => {
 			<div className="relative z-0 w-full mb-6 group">
 				<input onChange={changeFile} type="file"id="image" className="block py-2.5 px-0 w-full text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"/>
 				<label htmlFor="image" className="peer-focus:font-medium absolute text-gray-500 text-lg duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Încarcă imaginea</label>
-				{ errors.category && 
-					<span className="text-sm text-red-600">{ errors.category }</span>
+				{ errors.file && 
+					<span className="text-sm text-red-600">{ errors.file }</span>
+				}
+			</div>
+			<div className="relative z-0 w-full mb-6 group">
+				{ errors.title || errors.category || errors.file && 
+					<span className="text-sm text-red-600">Completează toate campurile corespunzător</span>
 				}
 			</div>
 			<div className="md:col-span-5 text-right">
                 <div className="inline-flex items-end">
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Trimite</button>
+                  <button onClick={submitUploadForm} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Trimite</button>
                 </div>
             </div>
 		</form>
