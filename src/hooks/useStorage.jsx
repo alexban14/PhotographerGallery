@@ -16,13 +16,12 @@ const useStorage = ({ title, category, file }) => {
 
 		const saveData = async(title, category, imageUrl, createdAt) => {
 			try {
-				const docRef = await addDoc(collection(projectFireStore, 'images'), {
+				await addDoc(collection(projectFireStore, 'images'), {
 					title,
 					category,
 					imageUrl,
 					createdAt
 				});
-				console.log(docRef);
 			} catch (e) {
 				setError(e);
 			}
@@ -32,7 +31,6 @@ const useStorage = ({ title, category, file }) => {
 		uploadTask.on('state_changed', 
 			(snapshot) => {
 				let progress = Math.round( (snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-				console.log(progress);
 				setProgress(progress);
 			},
 			(error) => {
@@ -41,7 +39,6 @@ const useStorage = ({ title, category, file }) => {
 			() => {
 				getDownloadURL(uploadTask.snapshot.ref)
 					.then( (downloadUrl) => {
-						console.log(downloadUrl);
 						setUrl(downloadUrl);
 						if (url) {
 							saveData(title, category, url, serverTimestamp()).then( () => {

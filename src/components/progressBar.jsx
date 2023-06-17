@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import useStorage from "../hooks/useStorage";
+import { motion } from "framer-motion";
 
 // eslint-disable-next-line react/prop-types
 const ProgressBar = ({ title, setTitle, category, setCategory, file, setFile }) => {
@@ -14,7 +15,11 @@ const ProgressBar = ({ title, setTitle, category, setCategory, file, setFile }) 
 	}, [url, setTitle, setCategory, setFile]);
 
 	return (
-		<div className="progress-bar" style={{ width: progress + '%' }}></div>
+		// style={{ width: progress + '%' }}
+		<motion.div className="progress-bar" 
+			initial={{ width: 0 }}
+			animate={{ width: progress + '%' }}
+		></motion.div>
 	)
 }
 

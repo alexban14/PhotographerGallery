@@ -6,7 +6,7 @@ const useFirestore = (collection) => {
 	const [imageDocs, setImageDocs] = useState([]);
 
 	useEffect( () => {
-		const q = query(fireCollection(projectFireStore, collection), orderBy('createdAt'));
+		const q = query(fireCollection(projectFireStore, collection), orderBy('createdAt', 'desc'));
 		const unsub = onSnapshot(q, (querySnapshot) => {
 			let imgDocs = []
 			querySnapshot.forEach( (doc) => {
@@ -17,6 +17,8 @@ const useFirestore = (collection) => {
 				setImageDocs(imgDocs);
 			});
 		});
+
+		return () => unsub();
 	}, [collection]);
 
 	return { imageDocs }
