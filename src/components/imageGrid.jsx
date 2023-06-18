@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 // eslint-disable-next-line react/prop-types
 const ImageGrid = ({ setSelectedImg }) => {
 	const { imageDocs } = useFirestore('images');
-	console.log(imageDocs);
 
 	return (
 		<div className="img-grid">
