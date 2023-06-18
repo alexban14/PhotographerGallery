@@ -2,20 +2,19 @@ import { initializeApp } from "firebase/app";
 import { getStorage } from 'firebase/storage';
 import { getFirestore } from 'firebase/firestore';
 
-
 const firebaseConfig = {
 
-	apiKey: "AIzaSyDf2UZDP6QnQqM-kssYjqxm3AV1NPZhUVs",
+	apiKey: process.env.FIREBASE_API_KEY,
   
-	authDomain: "grapher-gallery-dev.firebaseapp.com",
+	authDomain: process.env.AUTH_DOMAIN,
   
-	projectId: "grapher-gallery-dev",
+	projectId: process.env.PROJECT_ID,
   
-	storageBucket: "grapher-gallery-dev.appspot.com",
+	storageBucket: process.env.STORAGE_BUCKET,
   
-	messagingSenderId: "171350806486",
+	messagingSenderId: process.env.MESSAGING_SENDER_ID,
   
-	appId: "1:171350806486:web:34bec9254775829254de77"
+	appId: process.env.APP_ID
   
 };
 
