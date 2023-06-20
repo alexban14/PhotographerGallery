@@ -1,14 +1,16 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { firebaseAuth } from "../firebase/config";
 
 
-const Login = () => {
+const Login = ({ setUser }) => {
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
 	const [success, setSuccess] = useState();
 	const [error, setError] = useState(false);
 	const [loading, setLoading] = useState(false);
+	const reactNavigate = useNavigate();
 
 	async function handleLoginSubmit(e) {
 		e.preventDefault();
@@ -19,8 +21,9 @@ const Login = () => {
 			setError(false)
 			signInWithEmailAndPassword(firebaseAuth, email, password)
 				.then((userCredentials) => {
-					console.log(userCredentials.user);
-					setSuccess(true)
+					setUser(userCredentials.user);
+					setSuccess(true);
+					reactNavigate('/admin-panel');
 				})
 				.catch((error) => {
 					console.log(error);
