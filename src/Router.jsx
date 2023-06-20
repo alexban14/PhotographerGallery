@@ -4,6 +4,9 @@ import Gallery from "./components/Gallery";
 import Login from "./components/Login";
 import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "./firebase/config";
+import NavBar from "./components/NavBar";
+import ProtectRoute from "./utils/ProtectRoute";
+import AdminPanel from "./components/AdminPanel";
 
 const RouterComp = () => {
   const [user, setUser] = useState();
@@ -21,11 +24,23 @@ const RouterComp = () => {
 
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Gallery />} />
-		<Route path="/admin" element={<Login setUser={setUser} />} />
-		<Route path="/admin-panel" element={<h1>Panou Admin</h1>} />
-      </Routes>
+		<NavBar
+			user={user}
+			setUser={setUser}
+		/>
+		<Routes>
+			<Route path="/" element={
+				<Gallery user={user} />
+			} />
+			<Route path="/admin" element={
+				<Login setUser={setUser} />
+			} />
+			<Route path="/admin-panel" element={
+				<ProtectRoute user={user} >
+					<AdminPanel />
+				</ProtectRoute>
+			} />
+		</Routes>
     </>
   )
 }
