@@ -8,7 +8,7 @@ import NavBar from "./components/NavBar";
 import ProtectRoute from "./utils/ProtectRoute";
 import AdminPanel from "./components/AdminPanel";
 
-const RouterComp = () => {
+const CustomRouter = () => {
   const [user, setUser] = useState();
 
   useEffect(() => {
@@ -45,4 +45,4 @@ const RouterComp = () => {
   )
 }
 
-export default RouterComp;
+export default CustomRouter;

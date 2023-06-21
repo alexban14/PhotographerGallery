@@ -1,4 +1,5 @@
-const Title = () => {
+const HomeHeader = () => {
+
 	return (
 		<div className="title">
 			<h2>Your Pictures</h2>
@@ -7,4 +8,4 @@ const Title = () => {
 	)
 }
 
-export default Title;
+export default HomeHeader;

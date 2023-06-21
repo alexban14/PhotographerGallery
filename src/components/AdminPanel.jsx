@@ -1,6 +1,12 @@
+import AdminHeader from "./AdminHeader";
+import UploadForm from "./UploadForm";
+
 const AdminPanel = () => {
 	return (
-		<h1>Panou Admin</h1> 
+		<div className="mx-auto max-w-[960px]">
+			<AdminHeader />
+			<UploadForm />
+		</div>
 	);
 }
 
