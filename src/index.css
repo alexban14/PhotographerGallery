@@ -98,4 +98,7 @@ body{
     grid-template-columns: 1fr;
     grid-gap: 0;
   }
+  .img-wrap {
+    opacity: 1;
+  }
 }
