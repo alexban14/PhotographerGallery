@@ -56,12 +56,13 @@ body{
   opacity: 0.8;
 }
 .img-wrap img{
-  min-width: 100%;
-  min-height: 100%;
-  /* max-width: 150%; */
   position: absolute;
+  height: 100%;
+  width: 100%;
+  /* max-width: 150%; */
   top: 0;
   left: 0;
+  object-fit: cover;
 }
 
 /* modal styles */
