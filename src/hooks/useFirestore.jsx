@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
 import { projectFireStore } from "../firebase/config";
-import { query, collection as fireCollection, onSnapshot, orderBy } from "firebase/firestore";
+import { query, collection as fireCollection, onSnapshot, orderBy, limit } from "firebase/firestore";
 
-const useFirestore = (collection) => {
+const useFirestore = ({ collection, limitNum }) => {
 	const [imageDocs, setImageDocs] = useState([]);
 
 	useEffect( () => {
-		const q = query(fireCollection(projectFireStore, collection), orderBy('createdAt', 'desc'));
+		let q = '';
+		if (limit) {
+			q = query(fireCollection(projectFireStore, collection), orderBy('createdAt', 'desc'), limit(limitNum));
+		} else {
+			q = query(fireCollection(projectFireStore, collection), orderBy('createdAt', 'desc'));
+		}
+
 		const unsub = onSnapshot(q, (querySnapshot) => {
 			let imgDocs = []
 			querySnapshot.forEach( (doc) => {
@@ -19,7 +25,7 @@ const useFirestore = (collection) => {
 		});
 
 		return () => unsub();
-	}, [collection]);
+	}, [collection, limitNum]);
 
 	return { imageDocs }
 }

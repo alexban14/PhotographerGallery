@@ -3,7 +3,7 @@ import useFirestore from "../hooks/useFirestore";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 
 const HomeHeader = () => {
-	const { imageDocs } = useFirestore('images');
+	const { imageDocs } = useFirestore({ collection: 'images', limitNum: 5 });
 	const images = imageDocs.map((doc) => {
 		return (doc.imageUrl);
 	});
