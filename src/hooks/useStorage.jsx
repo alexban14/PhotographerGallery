@@ -14,17 +14,37 @@ const useStorage = ({ title, category, file }) => {
 		// references
 		const storageRef = ref(projectStorage, file.name);
 
-		const saveData = async(title, category, imageUrl, createdAt) => {
+		const saveData = async(title, category, imageUrl, orientation, createdAt) => {
 			try {
 				await addDoc(collection(projectFireStore, 'images'), {
 					title,
 					category,
 					imageUrl,
+					orientation,
 					createdAt
 				});
 			} catch (e) {
 				setError(e);
 			}
+		}
+
+		const getImageOrientation = (imageUrl) => {
+			return new Promise( (resolve, reject) => {
+				const img = new Image();
+				img.src = imageUrl;
+
+				img.onload = () => {
+					let orientation = '';
+					if (img.width >= img.height) {
+						orientation = 'landscape';
+					} else {
+						orientation = 'portrait'
+					}
+					resolve(orientation);
+				}
+
+				img.onerror = (e) => reject(e);
+			});
 		}
 
 		const uploadTask = uploadBytesResumable(storageRef, file);
@@ -41,13 +61,18 @@ const useStorage = ({ title, category, file }) => {
 					.then( (downloadUrl) => {
 						setUrl(downloadUrl);
 						if (url) {
-							saveData(title, category, url, serverTimestamp()).then( () => {
-								setDataSaved(true)
-							})
-							.catch( (e) => console.log(e));
+							getImageOrientation(url)
+								.then( (orientation) => {
+									saveData(title, category, url, orientation, serverTimestamp())
+									.then( () => {
+										setDataSaved(true)
+									})
+									.catch( (e) => console.log(e));
+								})
+								.catch((e) => console.log(e));
 						}
 					})
-					.catch( (error) => setError(error))
+					.catch( (error) => setError(error));
 			}
 		)
 

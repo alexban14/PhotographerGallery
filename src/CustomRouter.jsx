@@ -14,7 +14,6 @@ const CustomRouter = () => {
   useEffect(() => {
 	onAuthStateChanged(firebaseAuth, (userLoggedIn) => {
 		if (userLoggedIn) {
-			console.log(userLoggedIn);
 			setUser(userLoggedIn);
 		} else {
 			console.log('No user is loged in');
