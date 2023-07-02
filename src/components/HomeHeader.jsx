@@ -4,22 +4,18 @@ import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 
 const HomeHeader = () => {
 	const { imageDocs } = useFirestore({ collection: 'images', limitNum: 4, whereInfos: { key: 'orientation', value: 'landscape' } });
-	const images = imageDocs.map((doc) => {
-		console.log(doc)
-		return (doc.imageUrl);
-	});
 
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [isHovered, setIsHovered] = useState(false);
 
 	const prevSlide = () => {
 		const isFirstSlide = currentIndex === 0;
-		const newIndex = isFirstSlide ? images.length -1 : currentIndex -1;
+		const newIndex = isFirstSlide ? imageDocs.length -1 : currentIndex -1;
 		setCurrentIndex(newIndex);
 	}
 
 	const nextSlide = () => {
-		const isLastSlide = currentIndex === images.length - 1;
+		const isLastSlide = currentIndex === imageDocs.length - 1;
 		const newIndex = isLastSlide ? 0 : currentIndex + 1;
 		setCurrentIndex(newIndex);
 	}
@@ -39,7 +35,7 @@ const HomeHeader = () => {
 					<>
 						<div
 							key={currentIndex}
-							style={{ backgroundImage: `url(${images[currentIndex]})` }}
+							style={{ backgroundImage: `url(${imageDocs[currentIndex].imageUrl})` }}
 							className="w-full h-full bg-center bg-cover duration-500"
 							onMouseEnter={handleMouseEnter}
 							onMouseLeave={handleMouseLeave}
@@ -55,7 +51,7 @@ const HomeHeader = () => {
 							}
 						</div>
 						<div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full bg-black/20 text-white cursor-pointer">
-						<BsChevronCompactLeft onClick={prevSlide} />
+							<BsChevronCompactLeft onClick={prevSlide} />
 						</div>
 						<div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full bg-black/20 text-white cursor-pointer">
 							<BsChevronCompactRight onClick={nextSlide} />

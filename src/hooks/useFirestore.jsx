@@ -9,7 +9,7 @@ const useFirestore = ({ collection, limitNum, whereInfos }) => {
 		let q = '';
 		if ( limit && whereInfos ) {
 			q = query(fireCollection(projectFireStore, collection), where(whereInfos.key, '==', whereInfos.value), orderBy('createdAt', 'desc'), limit(limitNum));
-		} else if (limit) {
+		} else if (limitNum) {
 			q = query(fireCollection(projectFireStore, collection), orderBy('createdAt', 'desc'), limit(limitNum));
 		} else if (whereInfos) {
 			q = query(fireCollection(projectFireStore, collection), where(whereInfos.key, '==', whereInfos.value), orderBy('createdAt', 'desc'));
@@ -19,7 +19,7 @@ const useFirestore = ({ collection, limitNum, whereInfos }) => {
 
 		console.log(q);
 
-		const unsub = onSnapshot(q, (querySnapshot) => {
+		const unSub = onSnapshot(q, (querySnapshot) => {
 			let imgDocs = []
 			querySnapshot.forEach( (doc) => {
 				imgDocs.push({
@@ -30,8 +30,10 @@ const useFirestore = ({ collection, limitNum, whereInfos }) => {
 			});
 		});
 
-		return () => unsub();
-	}, [collection, limitNum, whereInfos]);
+		return () => {
+			unSub();
+		};
+	});
 
 	return { imageDocs }
 }

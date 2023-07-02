@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 const ImageGrid = ({ setSelectedImg }) => {
 	const { imageDocs } = useFirestore({ collection: 'images' });
 
+	console.log(imageDocs);
+
 	return (
 		<div className="img-grid">
 			{ imageDocs && imageDocs.map((doc, index) => {
