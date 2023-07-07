@@ -7,13 +7,13 @@ const Gallery = () => {
 	const [selectedImg, setSelectedImg] = useState(null);
 
 	return (
-		<>
+		<div className="mx-auto max-w-[960px]">
 			<HomeHeader />
-			<div className="mx-auto max-w-[960px]">
+			<div>
 				<ImageGrid selectedImg={selectedImg} setSelectedImg={setSelectedImg} />
 				{ selectedImg &&  <Modal selectedImg={selectedImg} setSelectedImg={setSelectedImg} />}
 			</div>
-		</>
+		</div>
 	)
 }
 

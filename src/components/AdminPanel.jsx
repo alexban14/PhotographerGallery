@@ -1,4 +1,5 @@
 import AdminHeader from "./AdminHeader";
+import ImagesMenu from "./ImagesMenu";
 import UploadForm from "./UploadForm";
 
 const AdminPanel = () => {
@@ -6,6 +7,7 @@ const AdminPanel = () => {
 		<div className="mx-auto max-w-[960px]">
 			<AdminHeader />
 			<UploadForm />
+			<ImagesMenu />
 		</div>
 	);
 }
